@@ -1,1 +1,39 @@
-<p>persons-list works!</p>
+<section class="persons-list">
+  <h1>Personen</h1>
+
+  <!-- Loading -->
+  @if (loading()){
+    <p>
+      Lade Personen...
+    </p>
+  }
+  @else{
+    @if(error()){
+      <p class="error">{{error}}</p>
+    }
+    @else{
+      @if(persons().length === 0){
+        <p>Keine Personen gefunden.</p>
+      }
+      @else{
+        <ul>
+          @for(person of persons(); track person.id){
+            <li>
+              <strong>
+                {{person.lastName}}, {{person.firstName}}
+              </strong><br>
+
+              @if (person.city){
+                {{person.zipCode}} {{person.city}}<br/>
+              }
+              @if (person.favoriteColor){
+                Lieblingsfarbe: {{person.favoriteColor}}
+              }
+            </li>
+          }
+        </ul>
+      }
+    }
+
+  }
+</section>
