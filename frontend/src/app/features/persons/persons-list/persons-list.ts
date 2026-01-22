@@ -7,6 +7,7 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-persons-list',
@@ -33,7 +34,7 @@ export class PersonsList implements OnInit, AfterViewInit{
   readonly error = signal<string | null>(null);
 
 
-  constructor(private personApi: PersonApi) {}
+  constructor(private personApi: PersonApi, private router: Router) {}
 
   ngOnInit() {
     this.personApi.getPersons().subscribe({
@@ -53,21 +54,21 @@ export class PersonsList implements OnInit, AfterViewInit{
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
 
-    const colorOrder = [
-      'blau',
-      'grün',
-      'violett',
-      'rot',
-      'gelb',
-      'türkis',
-      'weiß'
-    ];
+    const colorOrderMap: Record<string, number> = {
+      blau: 1,
+      grün: 2,
+      violett: 3,
+      rot: 4,
+      gelb: 5,
+      türkis: 6,
+      weiß: 7,
+    };
 
     this.dataSource.sortingDataAccessor = (item, property) => {
       if (property === 'favoriteColor') {
-        return colorOrder.indexOf(item.favoriteColor ?? '');
+        return colorOrderMap[item.favoriteColor ?? ''] ?? Number.MAX_SAFE_INTEGER;
       }
-      return (item as any)[property];
+      return (item as any)[property] ?? '';
     };
 
 
@@ -83,9 +84,12 @@ export class PersonsList implements OnInit, AfterViewInit{
   }
 
 
-
   applyFilter(value: string) {
     this.dataSource.filter = value.trim().toLowerCase();
+  }
+
+  openDetails(person: Person) {
+    this.router.navigate(['/persons', person.id]);
   }
 
 }

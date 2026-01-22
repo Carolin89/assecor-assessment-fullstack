@@ -1,1 +1,38 @@
-<p>person-detail works!</p>
+<section class="person-detail">
+  <h1>Personendetails</h1>
+
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
+  }
+
+  @if (error()) {
+    <mat-error>{{ error() }}</mat-error>
+  }
+
+  @if (!loading() && person()) {
+    <div class="detail-card">
+      <div class="name">
+        {{ person()!.firstName }} {{ person()!.lastName }}
+      </div>
+
+      <div class="detail-row">
+        <span class="label">PLZ</span>
+        <span class="value">{{ person()!.zipCode }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="label">Ort</span>
+        <span class="value">{{ person()!.city }}</span>
+      </div>
+
+      <div class="detail-row">
+        <span class="label">Lieblingsfarbe</span>
+        <span class="value">{{ person()!.favoriteColor }}</span>
+      </div>
+    </div>
+
+    <a class="back-link" routerLink="/persons">
+      ← Zurück zur Übersicht
+    </a>
+  }
+</section>
