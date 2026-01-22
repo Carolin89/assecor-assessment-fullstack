@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {PersonApi} from '../../../core/api/person-api';
 
 @Component({
   selector: 'app-persons-list',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './persons-list.css',
 })
 export class PersonsList {
+  private personApi = inject(PersonApi);
+  ngOnInit() {
+    this.personApi.getPersons().subscribe(data => {
+      console.log('Persons from API:', data);
+    });
+  }
 
 }

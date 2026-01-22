@@ -11,15 +11,15 @@ export class PersonApi {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll(): Observable<Person[]> {
+  getPersons(): Observable<Person[]> {
       return this.http.get<Person[]>(this.baseUrl);
     }
 
-   getById(id: number): Observable<Person> {
+   getPersonById(id: number): Observable<Person> {
       return this.http.get<Person>(`${this.baseUrl}/${id}`);
     }
 
-   getByColor(color: string): Observable<Person[]> {
+   getPersonsByColor(color: string): Observable<Person[]> {
       return this.http.get<Person[]>(`${this.baseUrl}/color/${color}`);
     }
 
