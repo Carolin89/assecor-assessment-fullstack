@@ -26,4 +26,22 @@ public class PersonService {
     public List<Person> getPersonsByColor(String color){
         return personRepository.findByColor(color);
     }
+
+    public Person create(Person incoming) {
+        long nextId = personRepository.findAll().stream()
+                .mapToLong(Person::getId)
+                .max()
+                .orElse(0L) + 1;
+
+        Person created = new Person(
+                nextId,
+                incoming.getFirstName(),
+                incoming.getLastName(),
+                incoming.getZipCode(),
+                incoming.getCity(),
+                incoming.getFavoriteColor()
+        );
+
+        return personRepository.save(created);
+    }
 }

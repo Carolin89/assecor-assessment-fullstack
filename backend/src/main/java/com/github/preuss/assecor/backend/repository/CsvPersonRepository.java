@@ -1,10 +1,8 @@
-package com.github.preuss.assecor.backend.repository.csv;
-
-import org.springframework.stereotype.Repository;
+package com.github.preuss.assecor.backend.repository;
 
 import com.github.preuss.assecor.backend.model.FavoriteColor;
 import com.github.preuss.assecor.backend.model.Person;
-import com.github.preuss.assecor.backend.repository.PersonRepository;
+import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,8 +21,6 @@ import java.util.stream.Collectors;
  * Incomplete records are tolerated and parsed with missing fields set to null.
  * No attempt is made to repair or merge broken CSV lines.
  */
-
-
 
 public class CsvPersonRepository implements PersonRepository {
 

@@ -1,5 +1,8 @@
 package com.github.preuss.assecor.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Person {
     private final long id;
     private final String firstName;
@@ -20,6 +23,18 @@ public class Person {
         this.zipCode = zipCode;
         this.city = city;
         this.favoriteColor = favoriteColor;
+    }
+
+
+    @JsonCreator
+    public Person(
+            @JsonProperty("firstName") String firstName,
+            @JsonProperty("lastName") String lastName,
+            @JsonProperty("zipCode") String zipCode,
+            @JsonProperty("city") String city,
+            @JsonProperty("favoriteColor") String favoriteColor
+    ) {
+        this(0L, firstName, lastName, zipCode, city, favoriteColor);
     }
 
     public long getId() {
