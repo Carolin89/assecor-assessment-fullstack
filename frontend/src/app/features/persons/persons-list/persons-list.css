@@ -46,3 +46,16 @@ mat-form-field {
   padding-bottom: 1rem;
 
 }
+
+.toolbar {
+  display: flex;
+  align-items: center;      /* WICHTIG: nicht flex-end */
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.75rem 0 1.5rem; /* weniger Luft nach oben */
+}
+
+.toolbar mat-form-field {
+  flex: 1;
+  max-width: 280px;
+}

@@ -1,5 +1,10 @@
+:host {
+  display: block;
+  padding-top: 2.5rem;
+}
+
 .person-create {
-  max-width: 600px;
+  max-width: 480px;
   margin: 0 auto;
 }
 
@@ -12,4 +17,16 @@ form {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }

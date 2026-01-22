@@ -8,21 +8,19 @@
   @if (error()) {
     <mat-error>{{ error() }}</mat-error>
   }
-
-
-  <div class="filter-row">
-    <mat-form-field appearance="outline">
+  <div class="toolbar">
+    <mat-form-field appearance="fill">
       <mat-label>Filtern</mat-label>
       <input matInput (keyup)="applyFilter(filterInput.value)" #filterInput />
     </mat-form-field>
-  </div>
 
-  <button
-    mat-raised-button
-    color="primary"
-    routerLink="/persons/new">
-    Person anlegen
-  </button>
+    <button
+      mat-stroked-button
+      color="primary"
+      routerLink="/persons/new">
+      Person anlegen
+    </button>
+  </div>
 
   <table mat-table [dataSource]="dataSource" matSort>
 
