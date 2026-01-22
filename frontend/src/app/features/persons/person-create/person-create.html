@@ -6,11 +6,17 @@
     <mat-form-field appearance="outline">
       <mat-label>Vorname</mat-label>
       <input matInput formControlName="firstName" />
+      <mat-error *ngIf="form.controls.firstName.invalid">
+        Vorname ist erforderlich
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Nachname</mat-label>
       <input matInput formControlName="lastName" />
+      <mat-error *ngIf="form.controls.lastName.invalid">
+        Nachname ist erforderlich
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -34,10 +40,11 @@
 
     <div class="actions">
       <button mat-button type="button" (click)="cancel()">Abbrechen</button>
-      <button mat-raised-button color="primary" type="submit">
+      <button mat-raised-button color="primary" type="submit"  [disabled]="form.invalid">
         Speichern
       </button>
     </div>
+
 
   </form>
 </section>
