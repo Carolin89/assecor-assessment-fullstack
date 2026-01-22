@@ -2,7 +2,6 @@ package com.github.preuss.assecor.backend.service;
 
 import com.github.preuss.assecor.backend.model.Person;
 import com.github.preuss.assecor.backend.repository.PersonRepository;
-import com.github.preuss.assecor.backend.service.PersonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -96,5 +95,27 @@ public class PersonServiceTest {
 
         verify(personRepository).findByColor("pink");
     }
+
+
+    @Test
+    void create_assigns_new_id_and_saves_person() {
+        Person incoming = new Person(0, "Max", "Mustermann", null, null, "blau");
+
+        when(personRepository.findAll()).thenReturn(List.of(
+                new Person(1, "Hans", "Müller", null, null, "blau")
+        ));
+
+        when(personRepository.save(any(Person.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Person created = personService.create(incoming);
+
+        assertThat(created.getId()).isEqualTo(2);
+        assertThat(created.getFirstName()).isEqualTo("Max");
+
+        verify(personRepository).findAll();
+        verify(personRepository).save(any(Person.class));
+    }
+
 
 }

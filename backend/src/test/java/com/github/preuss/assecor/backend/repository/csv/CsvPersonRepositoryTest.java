@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class CsvPersonRepositoryTest{
 
@@ -71,5 +72,16 @@ public class CsvPersonRepositoryTest{
 
         assertThat(is).isNotNull();
         return new CsvPersonRepository(is);
+    }
+
+    @Test
+    void save_throws_exception_because_repository_is_read_only() throws Exception {
+        CsvPersonRepository repo = createRepository();
+
+        Person person = new Person(99, "Max", "Mustermann", null, null, "blau");
+
+        assertThatThrownBy(() -> repo.save(person))
+                .isInstanceOf(UnsupportedOperationException.class)
+                .hasMessageContaining("read-only");
     }
 }
