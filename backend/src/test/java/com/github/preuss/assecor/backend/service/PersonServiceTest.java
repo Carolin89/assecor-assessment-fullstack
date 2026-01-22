@@ -1,4 +1,4 @@
-package com.github.preuss.assecor.backend.controller;
+package com.github.preuss.assecor.backend.service;
 
 import com.github.preuss.assecor.backend.model.Person;
 import com.github.preuss.assecor.backend.repository.PersonRepository;
