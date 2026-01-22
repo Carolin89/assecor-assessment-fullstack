@@ -2,6 +2,19 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.3.
 
+## Overview
+Fullstack demo application for managing persons and their favorite colors.
+
+- CSV-based REST API with pluggable data source
+- Angular frontend with overview and detail view
+- Filtering and sorting implemented client-side
+
+## Notes
+
+- The color order is implemented according to the task specification.
+- Filtering and sorting are handled client-side due to the small dataset size.
+- The focus of this project is clarity and adherence to the given requirements rather than feature completeness.
+
 ## Development server
 
 To start a local development server, run:
@@ -57,3 +70,5 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+

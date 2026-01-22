@@ -1,0 +1,30 @@
+.persons-list {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.mat-mdc-row {
+  cursor: pointer;
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+}
