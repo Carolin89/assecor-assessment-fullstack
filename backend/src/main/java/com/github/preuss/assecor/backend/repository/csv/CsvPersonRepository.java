@@ -3,7 +3,6 @@ package com.github.preuss.assecor.backend.repository.csv;
 import com.github.preuss.assecor.backend.model.FavoriteColor;
 import com.github.preuss.assecor.backend.model.Person;
 import com.github.preuss.assecor.backend.repository.PersonRepository;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -28,13 +27,13 @@ public class CsvPersonRepository implements PersonRepository {
     private final Path csvPath;
     private List<Person> persons;
 
-    public CsvPersonRepository(@Value("${csv.path:sample-input.csv}") String csvPath) {
-        this.csvPath = Path.of(csvPath);
+    public CsvPersonRepository(Path csvPath) {
+        this.csvPath = csvPath;
+        this.persons = List.copyOf(loadCsv(csvPath));
     }
 
-    @PostConstruct
-    void init() {
-        this.persons = List.copyOf(loadCsv(csvPath));
+    public CsvPersonRepository(@Value("${csv.path:sample-input.csv}") String csvPath) {
+        this(Path.of(csvPath));
     }
 
 
@@ -82,7 +81,7 @@ public class CsvPersonRepository implements PersonRepository {
             }
         }
         catch (IOException e){
-            throw new IllegalStateException("Could not read CSV file", e);
+            throw new IllegalStateException("Could not read CSV file"+ path, e);
         }
         return result;
     }
