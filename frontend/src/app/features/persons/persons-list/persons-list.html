@@ -1,39 +1,62 @@
 <section class="persons-list">
   <h1>Personen</h1>
 
-  <!-- Loading -->
-  @if (loading()){
-    <p>
-      Lade Personen...
-    </p>
+  @if (loading()) {
+    <mat-progress-bar mode="indeterminate" />
   }
-  @else{
-    @if(error()){
-      <p class="error">{{error}}</p>
-    }
-    @else{
-      @if(persons().length === 0){
-        <p>Keine Personen gefunden.</p>
-      }
-      @else{
-        <ul>
-          @for(person of persons(); track person.id){
-            <li>
-              <strong>
-                {{person.lastName}}, {{person.firstName}}
-              </strong><br>
 
-              @if (person.city){
-                {{person.zipCode}} {{person.city}}<br/>
-              }
-              @if (person.favoriteColor){
-                Lieblingsfarbe: {{person.favoriteColor}}
-              }
-            </li>
-          }
-        </ul>
-      }
-    }
-
+  @if (error()) {
+    <mat-error>{{ error() }}</mat-error>
   }
+
+  <mat-form-field appearance="outline">
+    <mat-label>Filtern</mat-label>
+    <input matInput (keyup)="applyFilter($any($event.target).value)" />
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Last Name -->
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nachname</th>
+      <td mat-cell *matCellDef="let p">{{ p.lastName }}</td>
+    </ng-container>
+
+    <!-- First Name -->
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vorname</th>
+      <td mat-cell *matCellDef="let p">{{ p.firstName }}</td>
+    </ng-container>
+
+    <!-- ZIP -->
+    <ng-container matColumnDef="zipCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>PLZ</th>
+      <td mat-cell *matCellDef="let p">{{ p.zipCode }}</td>
+    </ng-container>
+
+    <!-- City -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ort</th>
+      <td mat-cell *matCellDef="let p">{{ p.city }}</td>
+    </ng-container>
+
+    <!-- Color -->
+    <ng-container matColumnDef="favoriteColor">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Farbe</th>
+      <td mat-cell *matCellDef="let p">{{ p.favoriteColor }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+
+    <!-- Empty state -->
+    <tr *matNoDataRow>
+      <td colspan="5">Keine Personen gefunden.</td>
+    </tr>
+
+  </table>
 </section>
