@@ -23,4 +23,7 @@ export class PersonApi {
       return this.http.get<Person[]>(`${this.baseUrl}/color/${color}`);
     }
 
+  createPerson(person: Omit<Person, 'id'>) {
+    return this.http.post<Person>(`${this.baseUrl}`, person);
+  }
 }

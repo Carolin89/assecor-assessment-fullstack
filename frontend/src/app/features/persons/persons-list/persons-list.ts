@@ -7,12 +7,13 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {Router} from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-persons-list',
   standalone: true,
-  imports: [CommonModule, MatInputModule, MatTableModule, MatSortModule, MatFormFieldModule, MatProgressBarModule],
+  imports: [CommonModule, MatInputModule, MatTableModule, MatSortModule, MatFormFieldModule, MatProgressBarModule, MatButtonModule, RouterModule],
   templateUrl: './persons-list.html',
   styleUrl: './persons-list.css',
 })
