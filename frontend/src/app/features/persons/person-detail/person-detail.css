@@ -1,3 +1,7 @@
+:host {
+  display: block;
+  padding-top: 2.5rem;
+}
 .person-detail {
   max-width: 600px;
   margin: 0 auto;

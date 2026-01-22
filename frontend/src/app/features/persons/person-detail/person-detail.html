@@ -1,5 +1,5 @@
 <section class="person-detail">
-  <h1>Personendetails</h1>
+  <h1>{{ person()!.firstName }} {{ person()!.lastName }}</h1>
 
   @if (loading()) {
     <mat-progress-bar mode="indeterminate" />
@@ -11,9 +11,7 @@
 
   @if (!loading() && person()) {
     <div class="detail-card">
-      <div class="name">
-        {{ person()!.firstName }} {{ person()!.lastName }}
-      </div>
+
 
       <div class="detail-row">
         <span class="label">PLZ</span>

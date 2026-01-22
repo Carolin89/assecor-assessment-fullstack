@@ -9,10 +9,14 @@
     <mat-error>{{ error() }}</mat-error>
   }
 
-  <mat-form-field appearance="outline">
-    <mat-label>Filtern</mat-label>
-    <input matInput (keyup)="applyFilter($any($event.target).value)" />
-  </mat-form-field>
+
+  <div class="filter-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Filtern</mat-label>
+      <input matInput (keyup)="applyFilter(filterInput.value)" #filterInput />
+    </mat-form-field>
+  </div>
+
 
   <table mat-table [dataSource]="dataSource" matSort>
 

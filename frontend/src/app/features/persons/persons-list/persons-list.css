@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  padding-top: 2.5rem;
+}
+
 .persons-list {
   max-width: 1000px;
   margin: 0 auto;
@@ -5,11 +10,22 @@
 }
 
 h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 mat-form-field {
-  width: 100%;
+  width: 280px;
   margin-bottom: 1rem;
 }
 
@@ -27,4 +43,6 @@ mat-form-field {
 
 .mat-mdc-header-cell {
   font-weight: 600;
+  padding-bottom: 1rem;
+
 }
