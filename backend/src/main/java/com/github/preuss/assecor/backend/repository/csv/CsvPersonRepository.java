@@ -1,14 +1,15 @@
 package com.github.preuss.assecor.backend.repository.csv;
 
+import org.springframework.stereotype.Repository;
+
 import com.github.preuss.assecor.backend.model.FavoriteColor;
 import com.github.preuss.assecor.backend.model.Person;
 import com.github.preuss.assecor.backend.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -22,20 +23,17 @@ import java.util.stream.Collectors;
  * Incomplete records are tolerated and parsed with missing fields set to null.
  * No attempt is made to repair or merge broken CSV lines.
  */
-@Repository
+
+
+
 public class CsvPersonRepository implements PersonRepository {
-    private final Path csvPath;
+
     private List<Person> persons;
 
-    public CsvPersonRepository(Path csvPath) {
-        this.csvPath = csvPath;
-        this.persons = List.copyOf(loadCsv(csvPath));
-    }
 
-    public CsvPersonRepository(@Value("${csv.path:sample-input.csv}") String csvPath) {
-        this(Path.of(csvPath));
+    public CsvPersonRepository(InputStream csvInputStream) {
+        this.persons = List.copyOf(loadCsv(csvInputStream));
     }
-
 
     @Override
     public List<Person> findAll(){
@@ -70,20 +68,20 @@ public class CsvPersonRepository implements PersonRepository {
 
     // --------------CSV Parsing--------------------
 
-    private List<Person> loadCsv(Path path){
-        List<Person> result = new ArrayList<>();
-        try{
-            List<String> lines = Files.readAllLines(path);
+    private List<Person> loadCsv(InputStream inputStream) {
+
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(inputStream))) {
+            List<Person> result = new ArrayList<>();
+            String line;
             long lineNumber = 1;
-            for (String line : lines){
-                parseLine(line, lineNumber).ifPresent(result::add);
-                lineNumber++;
+            while ((line = reader.readLine()) != null) {
+                parseLine(line, lineNumber++).ifPresent(result::add);
             }
+            return result;
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not read CSV file", e);
         }
-        catch (IOException e){
-            throw new IllegalStateException("Could not read CSV file"+ path, e);
-        }
-        return result;
     }
 
     private Optional<Person> parseLine(String line, long id){
